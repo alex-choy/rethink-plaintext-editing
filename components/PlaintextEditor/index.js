@@ -6,11 +6,19 @@ import css from './style.css';
 
 function PlaintextEditor({ file, write }) {
   console.log(file, write);
-  const [fileText, setFileText] = useState(file.text().then(data => setFileText(data)));
+  const [fileText, setFileText] = useState('');
 
-  // useEffect(() => {
-  //   e => setFileText(e.target.value);
-  // }, [fileText])
+  useEffect(() => {
+    file.text().then(data => {
+      console.log(data);
+      setFileText(data);
+    })
+  }, []);
+
+  useEffect(() => {
+    const textarea = document.querySelector('textarea');
+    textarea.value = fileText;
+  }, [fileText])
 
 
   return (
